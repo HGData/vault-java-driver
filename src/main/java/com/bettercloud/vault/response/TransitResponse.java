@@ -6,6 +6,7 @@ import com.bettercloud.vault.json.JsonObject;
 import com.bettercloud.vault.rest.RestResponse;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 /**
  * This class is a container for the information returned by Vault in transit API
@@ -58,7 +59,7 @@ public class TransitResponse extends VaultResponse {
             if (operation == Transit.transitOperations.encrypt) {
                 result = resultObject.get("ciphertext").asString();
             } else {
-                result = resultObject.get("plaintext").asString();
+                result = new String(Base64.getDecoder().decode(resultObject.get("plaintext").asString()));
             }
         } catch (Exception ignored) {
         }

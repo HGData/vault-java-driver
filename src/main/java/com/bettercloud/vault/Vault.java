@@ -1,10 +1,6 @@
 package com.bettercloud.vault;
 
-import com.bettercloud.vault.api.Auth;
-import com.bettercloud.vault.api.Debug;
-import com.bettercloud.vault.api.Leases;
-import com.bettercloud.vault.api.Logical;
-import com.bettercloud.vault.api.Seal;
+import com.bettercloud.vault.api.*;
 import com.bettercloud.vault.api.pki.Pki;
 import com.bettercloud.vault.json.Json;
 import com.bettercloud.vault.json.JsonObject;
@@ -147,6 +143,15 @@ public class Vault {
      */
     public Logical logical() {
         return new Logical(vaultConfig);
+    }
+
+    /**
+     * Returns the implementing class for Vault's transit operations (e.g. encrypt, decrypt).
+     *
+     * @return The implementing class for Vault's transit operations (e.g. encrypt, decrypt)
+     */
+    public Transit transit() {
+        return new Transit(vaultConfig);
     }
 
     /**
