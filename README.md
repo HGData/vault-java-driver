@@ -249,6 +249,12 @@ Note that changes to the major version (i.e. the first number) represent possibl
 may require modifications in your code to migrate.  Changes to the minor version (i.e. the second number)
 should represent non-breaking changes.  The third number represents any very minor bugfix patches.
 
+* **4.1.0**: Transit and Kubernetes Auth Support
+  * Add support for the Transit engine in Vault. This engine provides encryption and decryption as a service. The implementation is meant to be
+    a starting point for utilizing the Transit engine. Create 'keyrings' outside of the scope of the SDK and use the SDK 
+    to encrypt and decrypt data against those 'keyrings'.
+  * Add support for the Kubernetes auth. The JWT auth has been generalized and allows for different types of JWT based auth to take place.
+    EX. `vault.auth().loginByKubernetes()`
 * **4.0.0**:  This is a breaking-change release, with two primary updates:
   * Adds support for Version 2 of the Key/Value Secrets Engine.  The driver now assumes that your Vault instance uses Version 2 of the 
     Key/Value Secrets Engine across the board.  To configure this, see the [Key/Value Secret Engine Config](#key-value-secret-engine-config) 
