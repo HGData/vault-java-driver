@@ -12,10 +12,7 @@ import com.bettercloud.vault.rest.Rest;
 import com.bettercloud.vault.rest.RestResponse;
 import lombok.Getter;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.Serializable;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
@@ -989,7 +986,7 @@ public class Auth {
             String kubeJwtToken = kubeSecretsFileReader.readLine();
 
             return loginByJWT("kubernetes", role, kubeJwtToken);
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new VaultException("Vault could not find or read the default Kubernetes token file. Expected Location: " + defaultKubeTokenLocation);
         }
     }
