@@ -28,12 +28,24 @@ public class Transit {
 
     public TransitResponse encrypt(String keyRing, String data) throws VaultException {
         String postBody = Json.object().add("plaintext", Base64.getEncoder().encodeToString(data.getBytes(StandardCharsets.UTF_8))).toString();
-        return makeTransitRequestWithRetries(keyRing, transitOperations.encrypt, postBody, config.getMaxRetries(), config.getRetryIntervalMilliseconds());
+        return makeTransitRequestWithRetries(
+          keyRing,
+          transitOperations.encrypt,
+          postBody,
+          config.getMaxRetries(),
+          config.getRetryIntervalMilliseconds()
+        );
     }
 
     public TransitResponse decrypt(String keyRing, String cipherText) throws VaultException {
         String postBody = Json.object().add("ciphertext", cipherText).toString();
-        return makeTransitRequestWithRetries(keyRing, transitOperations.decrypt, postBody, config.getMaxRetries(), config.getRetryIntervalMilliseconds());
+        return makeTransitRequestWithRetries(
+          keyRing,
+          transitOperations.decrypt,
+          postBody,
+          config.getMaxRetries(),
+          config.getRetryIntervalMilliseconds()
+        );
     }
 
     private TransitResponse makeTransitRequestWithRetries(String keyRing,
