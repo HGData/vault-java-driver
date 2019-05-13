@@ -99,6 +99,7 @@ public class Transit {
         switch (operation) {
             case decrypt: return "decrypt";
             case encrypt: return "encrypt";
+            default: throw new IllegalArgumentException("Only encrypt and decrypt are acceptable.");
         }
     }
 }
