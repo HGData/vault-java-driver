@@ -1,5 +1,6 @@
 package com.bettercloud.vault.response;
 
+import com.bettercloud.vault.VaultException;
 import com.bettercloud.vault.api.Transit;
 import com.bettercloud.vault.json.Json;
 import com.bettercloud.vault.json.JsonObject;
@@ -13,6 +14,9 @@ import java.util.Base64;
  * operations (e.g. encrypt, decrypt).
  */
 public class TransitResponse extends VaultResponse {
+    public static final String CIPHER_TEXT = "ciphertext";
+    public static final String PLAIN_TEXT = "plaintext";
+
     private String leaseId;
     private Boolean renewable;
     private Long leaseDuration;
@@ -57,9 +61,11 @@ public class TransitResponse extends VaultResponse {
             JsonObject resultObject = jsonObject.get("data").asObject();
 
             if (operation == Transit.transitOperations.encrypt) {
-                result = resultObject.get("ciphertext").asString();
+                result = resultObject.get(CIPHER_TEXT).asString();
+            } else if (operation == Transit.transitOperations.decrypt) {
+                result = new String(Base64.getDecoder().decode(resultObject.get(PLAIN_TEXT).asString()));
             } else {
-                result = new String(Base64.getDecoder().decode(resultObject.get("plaintext").asString()));
+                throw new VaultException("Unknown transit operation: " + operation);
             }
         } catch (Exception ignored) {
         }

@@ -64,7 +64,7 @@ public class Transit {
                       response.getStatus());
                 }
 
-                return new TransitResponse(response, retryCount, transitOperations.decrypt);
+                return new TransitResponse(response, retryCount, operation);
             } catch (RuntimeException | VaultException | RestException e) {
                 if (retryCount < maxRetryCount) {
                     retryCount++;
